@@ -1,7 +1,6 @@
 package net.amar.oreojava;
 
 import io.github.cdimascio.dotenv.Dotenv;
-import org.json.JSONArray;
 
 public class Util {
 
