@@ -27,7 +27,7 @@ public class DBEraser {
     public static boolean eraseData(String fieldName, Connection connection) {
         final String eraseDataStmt = """
                 DELETE FROM data
-                WHERE filedName = ?
+                WHERE fieldName = ?
                 """;
         try (PreparedStatement ps = connection.prepareStatement(eraseDataStmt)) {
             ps.setString(1, fieldName);
