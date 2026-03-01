@@ -22,13 +22,10 @@ public class Honeypot extends ListenerAdapter {
     public void onMessageReceived(@NotNull MessageReceivedEvent event) {
         if (event.getAuthor().isBot()) return;
         if (!event.isFromGuild()) return;
-
         if (Oreo.getForbiddenChannel() == null) {
             Log.warn("honeypot isn't set");
             return;
         }
-
-
 
         if (!event.getChannel().getId().equals(Oreo.getForbiddenChannel().getId()))
             return;

@@ -72,6 +72,7 @@ public class Oreo {
                 new SupportbanText(),
                 new Warn(),
                 new ModsBlacklist(),
+                new Lock(),
 
                 // owner
                 new HostInfo(),
