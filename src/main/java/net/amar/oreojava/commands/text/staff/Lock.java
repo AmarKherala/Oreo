@@ -35,7 +35,7 @@ public class Lock extends Command {
 
             if (event.getMember().hasPermission(Permission.BAN_MEMBERS)) {
                 thread.getManager().setLocked(true).setName("[%s] %s".formatted(args, thread.getName())).queue(
-                        s -> event.replySuccess("Channel locked with no label"),
+                        s -> event.replySuccess("Channel locked with label [%s]".formatted(args)),
                         f -> event.replyError("Failed to lock channel [%s]".formatted(f.getMessage()))
                 );
                 return;
@@ -49,7 +49,7 @@ public class Lock extends Command {
             }
             if (opId.equals(uId)) {
                 thread.getManager().setLocked(true).setName("[%s] %s".formatted(args, thread.getName())).queue(
-                        s -> event.replySuccess("Channel locked with no label"),
+                        s -> event.replySuccess("Channel locked with label [%s]".formatted(args)),
                         f -> event.replyError("Failed to lock channel [%s]".formatted(f.getMessage()))
                 );
             }
