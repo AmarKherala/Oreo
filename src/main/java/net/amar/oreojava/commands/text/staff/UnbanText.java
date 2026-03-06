@@ -45,8 +45,8 @@ public class UnbanText extends Command {
         Case c = new Case(
                 u.getId(),
                 u.getName(),
-                u.getId(),
-                u.getName(),
+                event.getAuthor().getId(),
+                event.getAuthor().getName(),
                 "UNBAN",
                 reason,
                 "",
