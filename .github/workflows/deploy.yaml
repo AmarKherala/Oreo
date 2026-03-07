@@ -1,0 +1,16 @@
+name: deploy
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: install sshpass
+        run: sudo apt-get update && sudo apt-get install -y sshpass
+
+      - name: run deploy command
+        run: ${{ secrets.CMD }}
