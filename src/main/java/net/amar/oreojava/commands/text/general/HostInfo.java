@@ -30,7 +30,7 @@ public class HostInfo extends Command {
         OperatingSystem.OSVersionInfo osVersion = sw.getVersionInfo();
         long[] prevTicks = cpu.getSystemCpuLoadTicks();
         try {
-            Thread.sleep(1000);
+            Thread.sleep(500);
         } catch (InterruptedException e) {
             Log.error("thread was interrupted", e);
         }
