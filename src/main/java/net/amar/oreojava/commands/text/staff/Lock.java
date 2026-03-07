@@ -1,5 +1,6 @@
 package net.amar.oreojava.commands.text.staff;
 
+import net.amar.oreojava.commands.Categories;
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
 import net.dv8tion.jda.api.Permission;
@@ -12,6 +13,7 @@ public class Lock extends Command {
         this.name = "lock";
         this.help = "lock threads anywhere with a label";
         this.arguments = "[label]";
+        this.category = Categories.staff;
         this.contexts = new InteractionContextType[]{
                 InteractionContextType.GUILD
         };
