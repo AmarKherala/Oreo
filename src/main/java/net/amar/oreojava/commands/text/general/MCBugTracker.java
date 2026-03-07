@@ -9,7 +9,7 @@ public class MCBugTracker extends Command {
 
     public MCBugTracker() {
         this.name = "MC";
-        this.help = "call an embed tag";
+        this.help = "view tracked Minecraft bugs on mijora";
         this.arguments = "[key]";
         this.aliases = new String[]{"mc"};
         this.category = Categories.general;

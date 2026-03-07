@@ -2,6 +2,7 @@ package net.amar.oreojava.commands.text.general;
 
 import com.jagrosh.jdautilities.command.Command;
 import com.jagrosh.jdautilities.command.CommandEvent;
+import net.amar.oreojava.Log;
 import net.amar.oreojava.commands.Categories;
 import org.jetbrains.annotations.NotNull;
 import oshi.SystemInfo;
@@ -28,6 +29,11 @@ public class HostInfo extends Command {
         GlobalMemory ram = hw.getMemory();
         OperatingSystem.OSVersionInfo osVersion = sw.getVersionInfo();
         long[] prevTicks = cpu.getSystemCpuLoadTicks();
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            Log.error("thread was interrupted", e);
+        }
         double cpuLoad = cpu.getSystemCpuLoadBetweenTicks(prevTicks) * 100;
 
         event.replyFormatted("""
