@@ -35,6 +35,11 @@ public class Lock extends Command {
                 return;
             }
 
+            if (thread.isLocked()) {
+                event.replyError("Thread is already locked");
+                return;
+            }
+
             String[] arg;
             if (!args.isEmpty()) {
                 arg = args.split("\\s+",2);
@@ -62,7 +67,7 @@ public class Lock extends Command {
                     f -> event.replyError("Failed to lock channel [%s]".formatted(f.getMessage()))
             );
         } catch (IllegalArgumentException e) {
-            event.replyError("Channel name too long, use ``o`` to override the name\n```!!lock o [label]");
+            event.replyError("Channel name too long, use ``o`` to override the name\n```!!lock o [label]```");
         } catch (Exception e) {
             event.replyError("Something went wrong...\n[%s]".formatted(e));
         }
