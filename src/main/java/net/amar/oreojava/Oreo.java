@@ -85,14 +85,15 @@ public class Oreo {
                 new SetBotActivity(),
                 new BanSlash(),
                 new GetCase(),
-                new GetCases(),
+                new GetUserCases(),
                 new AddEmbedTag(),
                 new GetEmbedTags(),
                 new RemoveEmbedTag(),
                 new GetEmoji(),
                 new EditCase(),
                 new MuteSlash(),
-                new SupportbanSlash()
+                new SupportbanSlash(),
+                new GetModCases()
         );
 
         jda = JDABuilder.createLight(Util.botToken())

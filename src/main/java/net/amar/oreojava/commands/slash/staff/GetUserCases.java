@@ -22,10 +22,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-public class GetCases extends SlashCommand {
+public class GetUserCases extends SlashCommand {
 
-    public GetCases() {
-        this.name = "get-cases";
+    public GetUserCases() {
+        this.name = "get-user-cases";
         this.help = "find cases of a specific user";
         this.category = Categories.staff;
         this.userPermissions = new Permission[]{
@@ -42,7 +42,14 @@ public class GetCases extends SlashCommand {
     @Override
     protected void execute(@NotNull SlashCommandEvent event) {
         User user = event.getOption("user").getAsUser();
-        Map<Integer, Case> cases = DBGetter.getUserCases(user.getId(), Oreo.getConnection());
+        paginateCases(user, event, true);
+    }
+
+    public static void paginateCases(User user, SlashCommandEvent event, boolean userCases) {
+        Map<Integer, Case> cases;
+
+        if (userCases) cases = DBGetter.getUserCases(user.getId(), Oreo.getConnection());
+        else cases = DBGetter.getModCases(user.getId(), Oreo.getConnection());
         if (cases == null) {
             event.replyFormat("User **%s** has no moderation cases",user.getName()).queue();
             return;
@@ -81,6 +88,6 @@ public class GetCases extends SlashCommand {
                 .setTimeout(1, TimeUnit.MINUTES)
                 .build();
         embedPaginator.display(event.getHook());
-        event.reply("Getting cases...").queue();
+        event.reply("Getting cases...").setEphemeral(true).queue();
     }
 }

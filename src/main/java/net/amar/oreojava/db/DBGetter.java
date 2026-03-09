@@ -24,6 +24,11 @@ public class DBGetter {
             WHERE userId = ?
             ORDER BY caseId ASC
             """;
+    private static final String getCaseByModStmt = """
+            SELECT * FROM cases
+            WHERE modId = ?
+            ORDER BY caseId ASC
+            """;
     private static final String getEmbedTagStmt = """
             SELECT * FROM embedtags WHERE id = ?
             """;
@@ -126,6 +131,41 @@ public class DBGetter {
         } catch (SQLException e) {
             Log.error("Failure while trying to get cases for a user",e);
            return null;
+        }
+        return cases;
+    }
+
+    public static Map<Integer ,Case> getModCases(String userId, Connection connection) {
+        Map<Integer, Case> cases = new HashMap<>();
+
+        try (PreparedStatement ps = connection.prepareStatement(getCaseByModStmt)) {
+            ps.setString(1, userId);
+            ResultSet rs = ps.executeQuery();
+
+            if(!rs.next()) {
+                Log.error("Cases not found", new Throwable("No cases was found for User ID "+userId));
+                return null;
+            }
+
+            do {
+                boolean appealable = rs.getInt("appealable") != 0;
+                cases.put(rs.getInt(1),
+                        new Case(
+                                rs.getString("userId"),
+                                rs.getString("userName"),
+                                rs.getString("modId"),
+                                rs.getString("modName"),
+                                rs.getString("type"),
+                                rs.getString("reason"),
+                                rs.getString("duration"),
+                                appealable
+                        )
+                );
+            } while (rs.next());
+
+        } catch (SQLException e) {
+            Log.error("Failure while trying to get cases for a mod",e);
+            return null;
         }
         return cases;
     }
