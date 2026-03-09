@@ -21,7 +21,7 @@ public class KickText extends Command {
                 InteractionContextType.GUILD
         };
         this.userPermissions = new Permission[] {
-                Permission.BAN_MEMBERS
+                Permission.KICK_MEMBERS
         };
     }
 

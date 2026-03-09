@@ -21,7 +21,7 @@ public class Warn extends Command {
                 InteractionContextType.GUILD
         };
         this.userPermissions = new Permission[]{
-                Permission.BAN_MEMBERS
+                Permission.MODERATE_MEMBERS
         };
     }
     @Override

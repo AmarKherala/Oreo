@@ -20,7 +20,7 @@ public class MuteText extends Command {
         this.aliases = new String[]{"m","shut","shush"};
         this.arguments = "<@user> [duration] [reason]";
         this.userPermissions = new Permission[]{
-                Permission.BAN_MEMBERS
+                Permission.MODERATE_MEMBERS
         };
         this.contexts = new InteractionContextType[]{
                 InteractionContextType.GUILD

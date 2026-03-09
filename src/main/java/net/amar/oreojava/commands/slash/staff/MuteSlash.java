@@ -27,7 +27,7 @@ public class MuteSlash extends SlashCommand {
                 InteractionContextType.GUILD
         };
         this.userPermissions = new Permission[] {
-                Permission.BAN_MEMBERS
+                Permission.MODERATE_MEMBERS
         };
 
         List<OptionData> options = new ArrayList<>();

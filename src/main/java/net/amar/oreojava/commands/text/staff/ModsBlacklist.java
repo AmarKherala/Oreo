@@ -18,7 +18,7 @@ public class ModsBlacklist extends Command {
         this.contexts = new InteractionContextType[]
                 {InteractionContextType.GUILD};
         this.userPermissions = new Permission[]
-                {Permission.BAN_MEMBERS};
+                {Permission.KICK_MEMBERS};
     }
 
     @Override
