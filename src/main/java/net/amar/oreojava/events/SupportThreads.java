@@ -79,7 +79,7 @@ public class SupportThreads extends ListenerAdapter {
     private void parseLog(Message msg) {
         // Find latestlog.txt specifically
         Message.Attachment log = msg.getAttachments().stream()
-                .filter(a -> a.getFileName().equalsIgnoreCase("latestlog.txt"))
+                .filter(a -> a.getFileName().contains("log"))
                 .findFirst()
                 .orElse(null);
 
