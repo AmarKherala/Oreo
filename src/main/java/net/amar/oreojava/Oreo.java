@@ -68,6 +68,7 @@ public class Oreo {
                 new BanText(),
                 new UnbanText(),
                 new MuteText(),
+                new UnmuteText(),
                 new KickText(),
                 new SupportbanText(),
                 new Warn(),
@@ -93,7 +94,8 @@ public class Oreo {
                 new EditCase(),
                 new MuteSlash(),
                 new SupportbanSlash(),
-                new GetModCases()
+                new GetModCases(),
+                new UnmuteSlash()
         );
 
         jda = JDABuilder.createLight(Util.botToken())

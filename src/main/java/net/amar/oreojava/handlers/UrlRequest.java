@@ -22,7 +22,7 @@ public class UrlRequest {
         try (Response res = client.newCall(req).execute()) {
             String bodyString = res.body().string();
             if (bodyString.isEmpty()) {
-                Log.error("Log body returned null, somehow.");
+                Log.error("Log body returned null, somehow...");
                 return null;
             }
             return bodyString;
