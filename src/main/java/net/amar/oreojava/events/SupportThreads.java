@@ -100,17 +100,12 @@ public class SupportThreads extends ListenerAdapter {
 
         String[] logContent = logString.split("\n");
 
-        // Check if it's actually a Mojo log
-        if (!(logString.contains("git.artdeell.mojo") || logString.contains("git.artdeell.mojo.debug"))) {
-            msg.replyEmbeds(notMojoLog().build()).queue();
-            return;
-        }
-
         // first loop through the mod list
         isSupported = true;
         modListLoop(msg, logContent, logString);
         if (!isSupported) return;
 
+        boolean isMojoLog = false;
         // here begins the parsing process
         String mojoVersion = "";
         String deviceModel = "";
@@ -122,6 +117,10 @@ public class SupportThreads extends ListenerAdapter {
         String javaVersion = "";
 
         for (String line : logContent) {
+
+            if (isMojoLog) continue;
+            else isMojoLog = line.contains("git.artdeell.mojo") || line.contains("git.artdeell.mojo.debug");
+
             if (line.startsWith("Info: Launcher version:"))
                 mojoVersion = line.substring("Info: Launcher version:".length()).trim();
             if (line.startsWith("Info: Architecture:"))
@@ -140,6 +139,11 @@ public class SupportThreads extends ListenerAdapter {
                 javaVersion = line.substring("Added custom env: JAVA_HOME=/data/user/0/git.artdeell.mojo.debug/runtimes/".length()).trim();
             if (line.startsWith("Added custom env: MOJO_RENDERER="))
                 mojoRenderer = line.substring("Added custom env: MOJO_RENDERER=".length()).trim();
+        }
+
+        if (!isMojoLog) {
+          msg.replyEmbeds(notMojoLog().build()).queue();
+          return;
         }
 
         if (mojoVersion.isEmpty() || deviceModel.isEmpty()) {
