@@ -137,27 +137,34 @@ public class Oreo {
 
      help.getClient().getCommands().forEach(c -> {
 
+       StringBuilder aliases = new StringBuilder();
+
+       if (c.getAliases() != null) {
+         for (String a : c.getAliases())
+           aliases.append(a).append(", ");
+       } else aliases.append("empty");
+
        if (c.getCategory()==Categories.owner) {
          ownerCmds.append("\n")
            .append("**%s** - ".formatted(c.getName()))
-           .append("%s ( %s )".formatted(c.getHelp(), c.getArguments()))
-           .append("-# Aliases: %s".formatted(c.getAliases().toString()))
+           .append("%s".formatted(c.getHelp()))
+           .append("\n-# Aliases: [%s]".formatted(aliases))
            .append("\n");
        }
 
        if (c.getCategory()==Categories.staff) {
          staffCmds.append("\n")
            .append("**%s** - ".formatted(c.getName()))
-           .append("%s ( %s )".formatted(c.getHelp(), c.getArguments()))
-           .append("-# Aliases: %s".formatted(c.getAliases().toString()))
+           .append("%s".formatted(c.getHelp()))
+           .append("\n-# Aliases: [%s]".formatted(aliases))
            .append("\n");
        }
 
        if (c.getCategory()==Categories.general) {
          generalCmds.append("\n")
            .append("**%s** - ".formatted(c.getName()))
-           .append("%s ( %s )".formatted(c.getHelp(), c.getArguments()))
-           .append("-# Aliases: %s".formatted(c.getAliases().toString()))
+           .append("%s".formatted(c.getHelp()))
+           .append("\n-# Aliases: [%s]".formatted(aliases))
            .append("\n");
        }
 
@@ -177,18 +184,18 @@ public class Oreo {
 
      if (isOwner)
        em.setDescription("""
-           General commands :- %s
-           Staff commands :- %s
-           Owner commands :- %s
+           ## General commands :- %s
+           ## Staff commands :- %s
+           ## Owner commands :- %s
            """.formatted(generalCmds, staffCmds, ownerCmds));
 
      else if (isStaff)
        em.setDescription("""
-           General commands :- %s 
-           Staff commands :- %s 
+           ## General commands :- %s 
+           ## Staff commands :- %s 
            """.formatted(generalCmds, staffCmds));
 
-     else em.setDescription("General commands :- "+generalCmds);
+     else em.setDescription("## General commands :- "+generalCmds);
 
      help.reply(em.build());
     }
