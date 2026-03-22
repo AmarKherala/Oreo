@@ -33,12 +33,16 @@ public class UnmuteText extends Command {
     Guild g = event.getGuild();
 
     try {
-      event.getJDA().retrieveUserById(uid).queue(user -> {
+      g.retrieveMemberById(uid).queue(user -> {
         if (!(user == null || reason == null || g == null)) {
+          if (!user.isTimedOut()) {
+            event.replyError("This user isn't timed out");
+            return;
+          }
           g.removeTimeout(user).reason(reason).queue(s -> {
             Case c = new Case(
-                    user.getId(),
-                    user.getName(),
+                    user.getUser().getId(),
+                    user.getUser().getName(),
                     event.getAuthor().getId(),
                     event.getAuthor().getName(),
                     "UNMUTE",
@@ -46,8 +50,8 @@ public class UnmuteText extends Command {
                     "",
                     true
             );
-            if (Verdict.buildVerdict(c, Oreo.getVerdictChannel(), user, null)) {
-              event.replySuccess("Unmuted **%s**".formatted(user.getName()));
+            if (Verdict.buildVerdict(c, Oreo.getVerdictChannel(), user.getUser(), null)) {
+              event.replySuccess("Unmuted **%s**".formatted(user.getUser().getName()));
             }
           });
         }

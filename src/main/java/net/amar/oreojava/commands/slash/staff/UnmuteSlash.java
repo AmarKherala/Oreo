@@ -13,7 +13,7 @@ import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.interactions.InteractionContextType;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
-import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.Guild;
 
 
@@ -35,17 +35,24 @@ public class UnmuteSlash extends SlashCommand {
 
       this.options = options;
     }
+
     @Override
     protected void execute(SlashCommandEvent event) {
-      User user = event.optUser("user");
+      Member user = event.optMember("user");
       String reason = event.optString("reason");
       Guild g = event.getGuild();
 
       if (!(user==null || reason==null || g==null)) {
+
+        if (!user.isTimedOut()) {
+          event.reply("This user isn't timed out").queue();
+          return;
+        }
+
         g.removeTimeout(user).reason(reason).queue(s -> {
           Case c = new Case(
-              user.getId(),
-              user.getName(),
+              user.getUser().getId(),
+              user.getUser().getName(),
               event.getUser().getId(),
               event.getUser().getName(),
               "UNMUTE",
@@ -53,8 +60,8 @@ public class UnmuteSlash extends SlashCommand {
               "",
               true
               );
-          if (Verdict.buildVerdict(c, Oreo.getVerdictChannel(), user, null)) {
-            event.reply("Unmuted **%s**".formatted(user.getName())).queue();
+          if (Verdict.buildVerdict(c, Oreo.getVerdictChannel(), user.getUser(), null)) {
+            event.reply("Unmuted **%s**".formatted(user.getUser().getName())).queue();
           }
         });
       }
