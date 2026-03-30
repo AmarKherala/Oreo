@@ -44,9 +44,9 @@ public class BanText extends Command {
                 ? null
                 : event.getMessage().getAttachments().get(0).getUrl();
         Member m = event.getMember();
-
+        Member mem = event.getGuild().retrieveMemberById(uid).complete();
         event.getJDA().retrieveUserById(uid).queue((mm) -> {
-            Member mem = event.getGuild().retrieveMemberById(mm.getId()).complete();
+      
             if (m.canInteract(mem)) {
                 event.getGuild().ban(mm, 0, TimeUnit.DAYS)
                         .reason(reason)
