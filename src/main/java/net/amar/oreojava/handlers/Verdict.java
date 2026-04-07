@@ -32,7 +32,10 @@ public class Verdict {
             if (proof==null) em = caseEmbed(mCase, caseId, u, null);
             else em = caseEmbed(mCase, caseId, u, proof);
 
-            if (announceVerdictInDm(u, em)) {
+            boolean isAppealabel = (mCase.getType().equals("BAN") ||
+                mCase.getType().equals("SUPPORT BAN")) && mCase.isAppealable();
+
+            if (announceVerdictInDm(u, em, isAppealabel)) {
                 tc.sendMessageEmbeds(em.build()).queue(
                         s -> {
                             try {
@@ -49,9 +52,14 @@ public class Verdict {
             return false;
         }
     }
-    private static boolean announceVerdictInDm(User u, EmbedBuilder em) {
+    private static boolean announceVerdictInDm(User u, EmbedBuilder em, boolean isAppeal) {
        try  {
-            u.openPrivateChannel().queue((s) -> s.sendMessageEmbeds(em.build()).queue());
+
+            u.openPrivateChannel().queue((s) -> {
+              if (isAppeal)
+                s.sendMessage("Your ban is appealable, you can appeal [here](https://forms.gle/2PB54RqZitH2FXaV7)").queue();
+            });
+
             return true;
         } catch (Exception e) {
            Log.error("Failed to announce verdict in DMs",e);
