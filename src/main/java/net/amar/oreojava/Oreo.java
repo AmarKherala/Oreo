@@ -5,6 +5,7 @@ import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
 import com.jagrosh.jdautilities.examples.command.PingCommand;
 
 import net.amar.oreojava.commands.slash.general.GetEmoji;
+import net.amar.oreojava.commands.slash.general.GetPretesterRole;
 import net.amar.oreojava.commands.slash.owner.SetBotActivity;
 import net.amar.oreojava.commands.slash.staff.*;
 import net.amar.oreojava.commands.text.general.CallEmbedTag;
@@ -98,7 +99,8 @@ public class Oreo {
                 new MuteSlash(),
                 new SupportbanSlash(),
                 new GetModCases(),
-                new UnmuteSlash()
+                new UnmuteSlash(),
+                new GetPretesterRole()
         );
 
         jda = JDABuilder.createLight(Util.botToken())
@@ -156,6 +158,12 @@ public class Oreo {
 
     public static Role getSupportbanRole() {
         String id = DBGetter.getData(connection, "support_ban");
+        if (id == null) return null;
+        return jda.getRoleById(id);
+    }
+
+    public static Role getPretesterRole() {
+        String id = DBGetter.getData(connection, "pretester");
         if (id == null) return null;
         return jda.getRoleById(id);
     }

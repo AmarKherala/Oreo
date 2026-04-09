@@ -3,7 +3,6 @@ package net.amar.oreojava.commands.slash.owner;
 import com.jagrosh.jdautilities.command.SlashCommand;
 import com.jagrosh.jdautilities.command.SlashCommandEvent;
 import net.amar.oreojava.Oreo;
-import net.amar.oreojava.commands.Categories;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.interactions.InteractionContextType;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
