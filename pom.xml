@@ -14,6 +14,11 @@
             <name>m2-chew</name>
             <url>https://m2.chew.pro/releases</url>
         </repository>
+
+        <repository>
+            <id>github</id>
+            <url>https://maven.pkg.github.com/AmarKherala/amoreo-lib</url>
+        </repository>
     </repositories>
 
     <properties>
@@ -63,6 +68,11 @@
         <groupId>org.json</groupId>
         <artifactId>json</artifactId>
         <version>20250517</version>
+    </dependency>  
+    <dependency>
+        <groupId>net.amar</groupId>
+        <artifactId>amoreo-lib</artifactId>
+        <version>1.0.8</version>
     </dependency>
 </dependencies>
   <build>
