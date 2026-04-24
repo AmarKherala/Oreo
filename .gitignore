@@ -44,3 +44,4 @@ build/
 *.json
 *.env
 logs
+src/main/resources/
