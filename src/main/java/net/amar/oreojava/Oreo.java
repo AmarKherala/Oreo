@@ -100,7 +100,8 @@ public class Oreo {
                 new SupportbanSlash(),
                 new GetModCases(),
                 new UnmuteSlash(),
-                new GetPretesterRole()
+                new GetPretesterRole(),
+                new IQTest()
         );
 
         jda = JDABuilder.createLight(Util.botToken())
