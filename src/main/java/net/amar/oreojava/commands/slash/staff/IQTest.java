@@ -41,7 +41,7 @@ public class IQTest extends SlashCommand {
 	protected void execute(SlashCommandEvent event) {
 
     User u = event.optUser("user");
-    MathQuestionUtils.Question q = MathQuestionUtils.generateQ(3);
+    MathQuestionUtils.Question q = MathQuestionUtils.generateQ(4);
     int answer = MathQuestionUtils.solveQ(q);
 
     // make two numbers close to the answer 
@@ -78,9 +78,14 @@ public class IQTest extends SlashCommand {
             con -> con.getUser().getIdLong()==u.getIdLong(),
             acc -> {
               String an = acc.getComponentId();
-              if (an.equals("answer")) 
+              if (an.equals("answer")) {
                 s.editOriginalEmbeds(success.build()).queue();
-              else s.editOriginalEmbeds(fail.build()).queue();
+                acc.reply("You got it right!!").queue();
+              }
+              else {
+                s.editOriginalEmbeds(fail.build()).queue();
+                acc.reply("lmfaooooo bro failed").queue();
+              }
             },
             1, TimeUnit.MINUTES,
             () -> s.editOriginal("Expired!").queue());
