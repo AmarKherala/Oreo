@@ -16,9 +16,9 @@
         </repository>
 
         <repository>
-            <id>github</id>
-            <url>https://maven.pkg.github.com/AmarKherala/amoreo-lib</url>
-        </repository>
+		        <id>jitpack.io</id>
+		        <url>https://jitpack.io</url>
+		    </repository>
     </repositories>
 
     <properties>
@@ -70,7 +70,7 @@
         <version>20250517</version>
     </dependency>  
     <dependency>
-        <groupId>net.amar</groupId>
+        <groupId>com.github.AmarKherala</groupId>
         <artifactId>amoreo-lib</artifactId>
         <version>1.1.2</version>
     </dependency>
