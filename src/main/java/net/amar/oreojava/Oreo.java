@@ -3,7 +3,10 @@ package net.amar.oreojava;
 import com.jagrosh.jdautilities.command.CommandClientBuilder;
 import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
 import com.jagrosh.jdautilities.examples.command.PingCommand;
-
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.EnumSet;
 import net.amar.oreojava.commands.slash.general.GetEmoji;
 import net.amar.oreojava.commands.slash.general.GetPretesterRole;
 import net.amar.oreojava.commands.slash.owner.SetBotActivity;
@@ -18,8 +21,8 @@ import net.amar.oreojava.commands.text.owner.LeaveServers;
 import net.amar.oreojava.commands.text.owner.RevokeInvites;
 import net.amar.oreojava.commands.text.staff.*;
 import net.amar.oreojava.db.DBGetter;
-import net.amar.oreojava.db.tables.Case;
 import net.amar.oreojava.db.DBTableBuilder;
+import net.amar.oreojava.db.tables.Case;
 import net.amar.oreojava.db.tables.Data;
 import net.amar.oreojava.db.tables.EmbedTag;
 import net.amar.oreojava.events.Honeypot;
@@ -32,18 +35,14 @@ import net.dv8tion.jda.api.entities.channel.concrete.ForumChannel;
 import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.util.EnumSet;
-
 public class Oreo {
 
     private static JDA jda;
     private static CommandClientBuilder CmdClientBuilder;
     private static Connection connection;
     private static EventWaiter waiter;
-    public static String[] prefixes = {"?", "m!", "$", ">"};
+    public static String[] prefixes = { "?", "m!", "$", ">" };
+
     public Oreo() throws InterruptedException, SQLException {
 
         waiter = new EventWaiter();
@@ -84,8 +83,8 @@ public class Oreo {
                 new AddData(),
                 new EraseData(),
                 new RevokeInvites(),
-                new LeaveServers()
-        );
+                new LeaveServers());
+
         CmdClientBuilder.addSlashCommands(
                 new SetBotActivity(),
                 new BanSlash(),
@@ -101,25 +100,24 @@ public class Oreo {
                 new GetModCases(),
                 new UnmuteSlash(),
                 new GetPretesterRole(),
-                new IQTest()
-        );
+                new IQTest());
 
         jda = JDABuilder.createLight(Util.botToken())
                 .addEventListeners(
                         waiter,
                         CmdClientBuilder.build(),
                         new Honeypot(),
-                        new SupportThreads()
-                )
+                        new SupportThreads())
                 .enableIntents(EnumSet.allOf(GatewayIntent.class))
                 .build()
                 .awaitReady();
     }
+
     public static void main(String[] args) {
         try {
-           new Oreo();
+            new Oreo();
         } catch (Exception e) {
-            Log.error("Failed to build bot instance",e);
+            Log.error("Failed to build bot instance", e);
         }
     }
 
@@ -141,31 +139,36 @@ public class Oreo {
 
     public static TextChannel getVerdictChannel() {
         String id = DBGetter.getData(connection, "verdict");
-        if (id == null) return null;
+        if (id == null)
+            return null;
         return jda.getTextChannelById(id);
     }
 
     public static ForumChannel getSupportChannel() {
         String id = DBGetter.getData(connection, "support");
-        if (id == null) return null;
+        if (id == null)
+            return null;
         return jda.getForumChannelById(id);
     }
 
     public static TextChannel getForbiddenChannel() {
         String id = DBGetter.getData(connection, "honeypot");
-        if (id == null) return null;
+        if (id == null)
+            return null;
         return jda.getTextChannelById(id);
     }
 
     public static Role getSupportbanRole() {
         String id = DBGetter.getData(connection, "support_ban");
-        if (id == null) return null;
+        if (id == null)
+            return null;
         return jda.getRoleById(id);
     }
 
     public static Role getPretesterRole() {
         String id = DBGetter.getData(connection, "pretester");
-        if (id == null) return null;
+        if (id == null)
+            return null;
         return jda.getRoleById(id);
     }
 }
