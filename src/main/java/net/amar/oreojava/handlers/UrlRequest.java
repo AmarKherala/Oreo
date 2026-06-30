@@ -17,21 +17,6 @@ public class UrlRequest {
     private static final MediaType JSON = MediaType.parse("application/json");
     private static final OkHttpClient client = new OkHttpClient();
 
-    public static String fetchMojoLog(String url) {
-        Request req = new Request.Builder().url(url).build();
-        try (Response res = client.newCall(req).execute()) {
-            String bodyString = res.body().string();
-            if (bodyString.isEmpty()) {
-                Log.error("Log body returned null, somehow...");
-                return null;
-            }
-            return bodyString;
-        } catch (Exception e) {
-            Log.error("Failed to fetch log from url ["+url+"]", e);
-            return null;
-        }
-    }
-
     public static void fetchBug(Message m, String key ) {
 
         JSONObject payload = new JSONObject()

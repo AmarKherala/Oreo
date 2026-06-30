@@ -26,7 +26,6 @@ import net.amar.oreojava.db.tables.Case;
 import net.amar.oreojava.db.tables.Data;
 import net.amar.oreojava.db.tables.EmbedTag;
 import net.amar.oreojava.events.Honeypot;
-import net.amar.oreojava.events.SupportThreads;
 import net.amar.oreojava.handlers.Help;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -106,8 +105,7 @@ public class Oreo {
                 .addEventListeners(
                         waiter,
                         CmdClientBuilder.build(),
-                        new Honeypot(),
-                        new SupportThreads())
+                        new Honeypot())
                 .enableIntents(EnumSet.allOf(GatewayIntent.class))
                 .build()
                 .awaitReady();
