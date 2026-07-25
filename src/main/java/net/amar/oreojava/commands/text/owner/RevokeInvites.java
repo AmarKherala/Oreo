@@ -8,7 +8,6 @@ import net.dv8tion.jda.api.requests.RestAction;
 import net.dv8tion.jda.api.requests.restaction.AuditableRestAction;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class RevokeInvites extends Command {
 
@@ -16,6 +15,7 @@ public class RevokeInvites extends Command {
         this.name = "revokeinvites";
         this.help = "revoke all guild invites";
         this.ownerCommand = true;
+        this.arguments = "[invite_code<F11>]";
         this.aliases = new String[]{"ri"};
         this.category = Categories.owner;
     }
@@ -23,9 +23,9 @@ public class RevokeInvites extends Command {
     protected void execute(CommandEvent event) {
 
         event.getGuild().retrieveInvites().queue(invites -> {
-
+            String code = event.getArgs();
             List<AuditableRestAction<Void>> deletions = invites.stream()
-                    .filter(in -> !in.getCode().equals("VHdwQFsaGX"))
+                    .filter(in -> !in.getCode().equals(code))
                     .map(Invite::delete)
                     .toList();
 
