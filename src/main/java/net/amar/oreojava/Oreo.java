@@ -54,7 +54,7 @@ public class Oreo {
         CmdClientBuilder.setOwnerId(Util.ownerId());
         CmdClientBuilder.setEmojis("✅", "⚠️", "❌");
         CmdClientBuilder.forceGuildOnly(Util.serverId());
-        CmdClientBuilder.setPrefix("!!");
+        CmdClientBuilder.setPrefix("&");
         CmdClientBuilder.setPrefixes(prefixes);
         CmdClientBuilder.setHelpConsumer(Help::helpCmdReply);
         CmdClientBuilder.addCommands(
@@ -72,7 +72,6 @@ public class Oreo {
                 new MuteText(),
                 new UnmuteText(),
                 new KickText(),
-                new SupportbanText(),
                 new Warn(),
 
                 // owner
@@ -93,10 +92,8 @@ public class Oreo {
                 new GetEmoji(),
                 new EditCase(),
                 new MuteSlash(),
-                new SupportbanSlash(),
                 new GetModCases(),
                 new UnmuteSlash(),
-                new GetPretesterRole(),
                 new IQTest());
 
         jda = JDABuilder.createLight(Util.botToken())
